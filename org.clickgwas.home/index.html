@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<title>Home | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="stylesheet" href="/css/style.css" />
+		<script type="text/javascript" src="/js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript">
+			var isnew = getCookie("isnew");
+			if(isnew != "0") {
+				window.location.href = "/welcome/";
+			}
+		</script>
+		<script type="text/javascript" src="/js/base_component.js"></script>
+
+		<link rel="stylesheet" href="css/home.css" />
+	</head>
+
+	<body page="home" onmousewheel="return false;">
+		<div class="warning">
+			<div class="container">
+				<div class="title">
+					<h1>Warning</h1>
+				</div>
+				<div class="info">
+					<p>You are accessing a non-profit web site which is based on GDC data portal hosted by National Cancer Institute, USA. All data was downloaded from GDC public database. Please make sure you are aware of and obey the policy of GDC data portal. Please go to
+						<a href="https://gdc.cancer.gov/support" target="_blank">GDC Support</a> for more information.</p>
+					<p>Unauthorized users of this web site should have no expectation of privacy regarding any communications or data processed by this web site.</p>
+					<p>Anyone accessing this web site expressly consents to monitoring of their actions and all communication or data transiting or stored on or related to this web site and is advised that if such monitoring reveals possible evidence of criminal activity, we may provide that evidence to law enforcement officials.</p>
+					<p>Unauthorized attempts to upload information, change information, or use of this web site may result in disciplinary action, civil, and/or criminal penalties. Please be advised that any research publication using the results made by our provided function should mention the URL in the “Materials and Methods” section and in the ”Acknowledgement” section.</p>
+					<p>Contact
+						<a href="#">Click Support</a> for more information.</p>
+				</div>
+				<div class="accept">
+					<button id="accept">Accept</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			if(getCookie("isread") != "1") {
+				$(".warning").fadeIn(700);
+			} else {
+				$("body").attr("onmousewheel", "return true;");
+			}
+			$("#accept").bind("click", function() {
+				$(".warning").fadeOut(500);
+				$("body").attr("onmousewheel", "return true;");
+				addCookie("isread", "1", "");
+			});
+		</script>
+
+		<!--page header-->
+		<div class="page-header" id="component_page_header"></div>
+		<!--navigation-->
+		<div class="header" id="component_nav"></div>
+
+		<!--banner-->
+		<div class="banner">
+			<div class="container">
+				<div class="banner-img flexslider">
+					<ul class="slides">
+						<li>
+							<img src="img/banner/banner6.jpg" />
+						</li>
+						<li>
+							<img src="/img/banner/banner1.jpg" />
+						</li>
+						<li>
+							<img src="/img/banner/banner2.jpg" />
+						</li>
+						<li>
+							<img src="/img/banner/banner3.jpg" />
+						</li>
+						<li>
+							<img src="/img/banner/banner4.jpg" />
+						</li>
+						<li>
+							<img src="/img/banner/banner5.jpg" />
+						</li>
+					</ul>
+				</div>
+				<div class="banner-info"></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+		<script>
+			$(window).load(function() {
+				var bannerinfo = [{
+					title: "Science news",
+					info: "<p>Led by Tianjin University (TJU) Professor Ying-Jin Yuan, TJU's synthetic biology team has completed the synthesis of redesigned yeast chromosomes synV and synX with the two studies published in Science (Science 355, eaaf4706 (2017); Science 355, eaaf4704 (2017)) on March 10, 2017.</p><p>The publications are part of the effort to chemically synthesize the designer yeast genome (Sc 2.0), in collaboration with NYU and John Hopkins in the US, Tsinghua University, BGI-Shenzhen in China, the University of Edinburgh in the UK, and the Institut Pasteur and Sorbonne Universités in France, as well as industry partners.</p>",
+					link: "#",
+				}, {
+					title: "About ClickGWAS",
+					info: "<p>ClickGwas is an interactive online data analysis system for researchers to transform, visualize, download, and analyze certain kind of TCGA/GDC public database including Gene expression, DNA methylation, DNA copy number, DNA mutation (more than 30 cancer types and more than 10,000 cases ). Researchers can process several basic GWAS (genome-wide association study) by themselves only by mouse-clicking. All kinds of analysis are also available to researchers' in-house data which is submitted to our website for analysis. More sophisticated analysis are also available on request.</p>",
+					link: "#",
+				}, {
+					title: "Data Plots",
+					info: "<p>Bee-swarm plot (cross-cancers, cross-genes), Mountain plot (Copy number only), Manhattan plot, Deflection plot, Lego plot (mutation data only), Volcano plot, Heatmap are provided by our website. Users can created any of them by only mouse-clicking. Necessary information (including sample ID, gene ID etc) will show up as long as the mouse is putted on the corresponding spot.</p>",
+					link: "#",
+				}, {
+					title: "Data mining",
+					info: "<p>Simple Linear regression between gene expression, DNA copy number variation or DNA methylation, two-class classification and cox-model based survival analysis are provided.</p><p>More sophisticated data mining are available on request by contacting us!</p>",
+					link: "#",
+				}, {
+					title: "About US",
+					info: "<p>&quot;In silico biology&quot; is a lab focusing on using cyber techniques, data mining techniques to analysis DNA sequencing data, protein data and methbolic data for the research of disease treatment development. Now we are working on the GWAS analysis of cancer research.</p><p>This lab is supported by Dr. Kai Song of Tianjin University, China; Dr. Adi F. Gazdar and Dr. John Minna of UT Southwestern medical center, USA.</p>",
+					link: "#",
+				}, {
+					title: "News & Updates",
+					info: "<p>Until now, all data was downloaded from the &quot;Legacy GDC portal&quot; which was updated before 10/05/2016. New updated data is coming!</p><p>Gene expression is the level 3 data preprocessed by TCGA was used which was measured by the platform Illumina HiSeq 2000 RNA Sequencing Version 2.</p><p>The level 3 CNV (Copy Number Variation) data was measured by Affymetrix Genome-Wide Human SNP Array 6.0</p><p>The level 2 Methylation data was collected via the HumanMethylation 450 platform.</p><p>More category data is coming!</p>",
+					link: "#",
+				}, ];
+				$(".banner-info").append("<h2>" + bannerinfo[0].title + "</h2><div><p>" + bannerinfo[0].info + "</p></div>");
+				$('.flexslider').flexslider({
+					directionNav: false,
+					pauseOnAction: true,
+					slideshowSpeed: 16000,
+					before: function() {
+						$(".banner-info").fadeOut(300, function() {
+							var nav = $(".flex-control-paging > li > a");
+							$.each(nav, function(i, info) {
+								if($(info).hasClass("flex-active")) {
+									$(".banner-info > h2").text(bannerinfo[i].title);
+									$(".banner-info > div").html(bannerinfo[i].info)
+								}
+							})
+						});
+						$(".banner-info").fadeIn(300)
+					},
+				})
+			});
+		</script>
+
+		<!--home body-->
+		<div class="data-tools">
+			<div class="container">
+				<!--dataplots-->
+				<div class="data-plots" id="data_plots">
+					<h2>Data Plots</h2>
+					<em>To make the GWAS analysis visible and vivic, different kinds of plots are provided here.</em>
+				</div>
+				<!--datamining-->
+				<div class="data-mining">
+					<h2>Data Mining</h2>
+					<div id="data_mining_1">
+						<em>Linear regression analysis, two-class classification analysis, significance test and survival analysis are provided by us.</em>
+					</div>
+					<div id="data_mining_2">
+						<em>Two-class classification analysis are provided by us. Two-class classification is processed with a widely used Partial Least Square method. Because data-mining is a highly sophisticated research which is usually need several steps with different algorithms. Therefore, advanced data-mining analysis is available on requirement.</em>
+					</div>
+				</div>
+				<script type="text/javascript">
+					var data_plots_info = [{
+						title: 'Beeswarm plot',
+						img: 'beeswarm.jpg',
+						info: 'The beeswarm plot is a one-dimensional scatter plot like "stripchart", but with closely-packed, non-overlapping points. Here, the beeswarm plots with or without box plot are provided. It’s very helpful to see the distribution of certain kinds of samples. By clicking “by genes” button in Beeswarm web page, beeswarm plots for several genes in specific cancer types can be created; by clicking “by cancer” button in Beeswarm web page, beeswarm plots for the specific genes across different cancer types can be created for your research.',
+						url_demo: '#',
+						url_analysis: 'http://analysis.clickgwas.org/todo/beeswarm/'
+					}, {
+						title: 'Mountain plot',
+						img: 'moutain.jpg',
+						info: 'Mountain plot is a very powerful plot for analyzing genomic deflection of copy number variations (CNVs) for specific cancer types. You can choose to create a Mountain plot for the whole genome or for only certain chromosomes. Median/mean values of each gene across all samples will be calculated first. Then for each chromosome, they are used as y-ordinates as well as the locations of the corresponding genes are used as x-ordinates.',
+						url_demo: '#',
+						url_analysis: 'http://analysis.clickgwas.org/todo/mountain/'
+					}, {
+						title: 'Manhattan plot',
+						img: 'manhattan.jpg',
+						info: 'A Manhattan plot is a type of scatter plot used to display genomic coordinates along X-axis with the negative logarithm of the association P-value or ratios of Median/mean values for each single gene displayed on the Y-axis. It means that each dot on the Manhattan plot signifies a gene. It gains its name from the similarity of such a plot to the Manhattan skyline: a profile of skyscrapers towering above the lower level “buildings” which very around a lower height.',
+						tip: '( Gene expression and copy number variations only )',
+						url_demo: '#',
+						url_analysis: 'http://analysis.clickgwas.org/todo/manhattan/'
+					}, {
+						title: 'Deflection plot',
+						img: 'deflection.jpg',
+						info: 'A Deflection plot is an advanced Manhattan plot between the gene expression or copy number variations (CNVs) of two types of cancer (A and B). As what a Manhattan plot does, X-axis shows the genomic coordinate of each gene along the whole genome and Y-axis shows the negative logarithm of the association P-value or ratios of Median/mean values for each single gene. But different fro a Manhattan plot, the sign of Y-axis shows the direction of gene expression or CNVs of A compared with that of B. For gene expression, positive Y-axis value means gene is over-expressed in A compared with B, negative one means it’s under-expression in A; for CNVs, positive Y-axis value means gene is amplified in A than it is in B, negative one means it’s lost in A.',
+						tip: '( Gene expression and copy number variations only )',
+						url_demo: '#',
+						url_analysis: '#'
+					}, {
+						title: 'Lego plot',
+						img: 'lego.jpg',
+						info: 'There are 12 types of one nucleotide mutation or 6 types without considering the strand-bias effect and 192 types of three nucleotides mutation (without strand-bias, there are 96 types).',
+						tip: '( Mutation data only )',
+						url_demo: '#',
+						url_analysis: '#'
+					}, {
+						title: 'Volcano plot',
+						img: 'volcano.jpg',
+						info: 'A volcano plot is constructed by plotting the negative log of the p_value on the Y-axis (usually base 10). X-axis is the log2 of the fold change between gene expressions, copy number variations or methylation values of genes across the whole genome. Therefore, the genes with both statistical significance and biological significance will be located in the upper left and upper right of the volcano plot.',
+						url_demo: '#',
+						url_analysis: '#'
+					}, {
+						title: 'Heatmap',
+						img: 'heatmap.jpg',
+						info: 'A <strong>heat</strong> map (<strong>or heatmap</strong>) is a graphical representation of data where the individual values contained in a matrix are represented as colors. Tree maps calculated by a Hierarchy Clustering Analysis is used along with a heatmap to show the similiarities among samples or genes.',
+						url_demo: '#',
+						url_analysis: '#'
+					}, ];
+					$.each(data_plots_info, function(i, data) {
+						var data_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<tip>" + data.tip + "</tip>";
+						var data_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+						var data_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a href='" + data.url_analysis + "' class='float-right'>Go to analyze&nbsp;&gt;&gt;</a>";
+						var container = '<div class="tools-class"><div class="tools-info"><h1>' + data.title + '</h1>' + data_tip + '<p><img src="img/home-chart-demo/' + data.img + '"/>' + data.info + '</p><div class="tools-link">' + data_url_demo + data_url_analysis + '</div></div></div>';
+						$("#data_plots").append(container);
+					});
+
+					var data_mining_1 = [{
+						title: 'Linear regression analysis',
+						img: 'linear_regression.jpg',
+						info: 'A line with a correlation coefficient value as the slope is created to show the linear regression between two categories of values for one gene in a specific cancer type.<br /><br /> The correlation coefficients and the p-value for testing the hypothesis that there is no relationship between the observed phenomena (null hypothesis) are also shown in this figure.',
+						url_demo: '#',
+						url_analysis: 'http://analysis.clickgwas.org/todo/linear_regression/'
+					}, ];
+					$.each(data_mining_1, function(i, data) {
+						var data_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<tip>" + data.tip + "</tip>";
+						var data_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+						var data_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a href='" + data.url_analysis + "' class='float-right'>Go to analyze&nbsp;&gt;&gt;</a>";
+						var container = '<div class="tools-class"><div class="tools-info"><h1>' + data.title + '</h1>' + data_tip + '<p><img src="img/home-chart-demo/' + data.img + '"/>' + data.info + '</p><div class="tools-link">' + data_url_demo + data_url_analysis + '</div></div></div>';
+						$("#data_mining_1").append(container);
+					});
+
+					var data_mining_2 = [{
+						title: 'Significance test',
+						img: 'significance_test.jpg',
+						info: 'In statistical hypothesis testing,[1][2] statistical significance (or a statistically significant result) is attained whenever the observed p-value of a test statistic is less than the significance level defined for the study.[3][4][5][6][7][8][9] The p-value is the probability of obtaining results at least as extreme as those observed, given that the null hypothesis is true. The significance level, α, is the probability of rejecting the null hypothesis, given that it is true.[10] This statistical technique for testing the significance of results was developed in the early 20th century.<br /><br /> The term significance does not imply importance and the term statistical significance is not the same as research, theoretical, or practical significance.[1][2][16] For example, the term clinical significance refers to the practical importance of a treatment effect.',
+						url_demo: '#',
+						url_analysis: '#'
+					}, {
+						title: 'Survival analysis',
+						img: 'survival_analysis.jpg',
+						info: 'Survival analysis is a branch of statistics for analyzing the expected duration of time until one or more events happen, such as death in biological organisms and failure in mechanical systems. This topic is called reliability theory or reliability analysis in engineering, duration analysis or duration modelling in economics, and event history analysis in sociology.<br /><br /> More generally, survival analysis involves the modelling of time to event data; in this context, death or failure is considered an "event" in the survival analysis literature – traditionally only a single event occurs for each subject, after which the organism or mechanism is dead or broken. Recurring event or repeated event models relax that assumption. The study of recurring events is relevant in systems reliability, and in many areas of social sciences and medical research.',
+						url_demo: '#',
+						url_analysis: '#'
+					}, ];
+					$.each(data_mining_2, function(i, data) {
+						var data_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<tip>" + data.tip + "</tip>";
+						var data_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+						var data_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a href='" + data.url_analysis + "' class='float-right'>Go to analyze&nbsp;&gt;&gt;</a>";
+						var container = '<div class="tools-class"><div class="tools-info"><h1>' + data.title + '</h1>' + data_tip + '<p><img src="img/home-chart-demo/' + data.img + '"/>' + data.info + '</p><div class="tools-link">' + data_url_demo + data_url_analysis + '</div></div></div>';
+						$("#data_mining_2").append(container);
+					});
+				</script>
+			</div>
+		</div>
+
+		<!--news and documents-->
+		<div class="plugs">
+			<div class="container">
+				<div class="news">
+					<h1>News & Updates</h1>
+					<div class="news-each">
+						<p>
+							Until now, all data was downloaded from the “Legacy GDC portal” which was updated before 10/05/2016. New updated data is coming!
+						</p>
+						<p>
+							Gene expression is the level 3 data preprocessed by TCGA was used which was measured by the platform Illumina HiSeq 2000 RNA Sequencing Version 2.
+						</p>
+						<p>
+							The level 3 CNV (Copy Number Variation) data was measured by Affymetrix Genome-Wide Human SNP Array 6.0
+						</p>
+						<p>
+							The level 2 Methylation data was collected via the HumanMethylation 450 platform.
+						</p>
+						<p>
+							More category data is coming!
+						</p>
+					</div>
+				</div>
+
+				<div class="documents">
+					<div class="documents-con">
+						<h1>Documents</h1>
+						<em>
+							Learn how to use the Click Data Portal to its full potential with common topics such as:
+						</em>
+						<ul>
+							<li>
+								<a href="/documents/">How to start?</a>
+							</li>
+						</ul>
+						<a href="/documents/" class="getmore">Find More Documents&nbsp;&gt;&gt;</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--footer-->
+		<div class="footer" id="component_footer"></div>
+	</body>
+
+</html>

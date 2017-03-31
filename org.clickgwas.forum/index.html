@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Home | Forum | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+		<link rel="stylesheet" id='bootstrap-css-css' href="/css/Bootstrap_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='responsive-css-css' href="/css/Bootstrap_Responsive_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='pretty-photo-css-css' href="/css/prettyphoto.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='main-css-css' href="/css/main.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='blue-skin-css' href="/css/BlueSkin.css" type='text/css' media='all' />
+	</head>
+
+	<body>
+		<!-- Start of Header -->
+		<div class="header-wrapper"></div>
+		<!-- End of Header -->
+
+		<!-- Start of Search Wrapper -->
+		<div class="search-area-wrapper"></div>
+		<!-- End of Search Wrapper -->
+
+		<!-- Start of Page Container -->
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<!-- start of page content -->
+					<div class="span8 page-content">
+						<!-- Basic Home Page Template -->
+						<div class="row separator">
+							<!--推荐文章-->
+							<section class="span4 articles-list">
+								<h3>Featured Articles</h3>
+								<ul class="articles" id="featured-articles"></ul>
+							</section>
+							<!--最新文章-->
+							<section class="span4 articles-list">
+								<h3>Latest Articles</h3>
+								<ul class="articles" id="latest-articles"></ul>
+							</section>
+						</div>
+					</div>
+					<!-- end of page content -->
+
+					<!-- start of sidebar -->
+					<aside class="span4 page-sidebar">
+						<!--支持-->
+						<section class="widget">
+							<div class="support-widget">
+								<h3 class="title">Support</h3>
+								<p class="intro">Need more support? If you did not found an answer,
+									<a href="http://www.clickgwas.org/about/">contact us</a> for further help.</p>
+							</div>
+						</section>
+						<!--链接-->
+						<section class="widget">
+							<div class="quick-links-widget">
+								<h3 class="title">Quick Links</h3>
+								<ul id="menu-quick-links" class="menu clearfix">
+									<li>
+										<a href="/">Home</a>
+									</li>
+									<li>
+										<a href="/Articleslist/">Articles List</a>
+									</li>
+									<li>
+										<a href="/FAQs/">FAQs</a>
+									</li>
+									<li>
+										<a href="http://www.clickgwas.org/about/">Contact</a>
+									</li>
+									<li>
+										<a href="/publish/">Write An Essay</a>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<!--标签-->
+						<section class="widget">
+							<h3 class="title">Labels</h3>
+							<div class="tagcloud" id="tags"></div>
+						</section>
+					</aside>
+					<!-- end of sidebar -->
+				</div>
+			</div>
+		</div>
+		<!-- End of Page Container -->
+
+		<!-- Start of Footer -->
+		<footer id="footer-wrapper">
+			<div id="footer" class="container"></div>
+			<div id="footer-bottom-wrapper"></div>
+		</footer>
+		<!-- End of Footer -->
+
+		<!--<li class="article-entry standard">
+			<h4><a href="/Articleslist/single.html">Articles for clickgwas forum about beeswarm plot</a></h4>
+			<span class="article-meta">25 Feb, 2017 in <a href="#" title="View all posts in Server &amp; Database">plot &amp; beeswarm</a></span>
+		</li>-->
+
+		<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript">
+			// http://localhost:8003/?token=ejWDcDk_g5adoT2l3VGp9g==
+
+			$(document).ready(function() {
+				$("#headertitle").append("Forum&nbsp;|&nbsp;Home");
+				if(__TOKEN__ == "") {
+					__TOKEN__ = GetQueryString("token");
+				}
+
+				$.post(__API__ + "homepage", {
+					token: __TOKEN__,
+				}, function(data) {
+					var obj = eval("(" + data + ")");
+					console.log(obj);
+
+					$.each(obj.data.featureArticle, function(i, o) {
+						$("#featured-articles").append('<li class="article-entry standard"><h4><a href="/Articleslist/single.html?id='+o.id+'" target="_blank">' + o.title + '</a></h4><span class="article-meta">' + o.time + ' in <a href="#">' + o.category + '</a></span></li>');
+					});
+					$.each(obj.data.latestArticle, function(i, o) {
+						$("#latest-articles").append('<li class="article-entry standard"><h4><a href="/Articleslist/single.html?id='+o.id+'" target="_blank">' + o.title + '</a></h4><span class="article-meta">' + o.time + ' in <a href="#">' + o.category + '</a></span></li>');
+					});
+
+					$.each(obj.data.tag, function(i, o) {
+						$("#tags").append('<a href="#" class="tag">' + o + '</a>');
+					});
+
+					$.each(obj.data.category, function(i, o) {
+						$("#categories").append('<li><a href="#">' + o + '</a></li>');
+					});
+					$.each(obj.data.news, function(i, o) {
+						$("#latest-news").append('<li><a href="#">' + o.title + '</a></li>');
+					});
+
+					if(obj.isLogin == 1) {
+						getInfo();
+					}
+				});
+
+//				$.post(__API__ + "showOneTag", {
+//					tag: 'bio'
+//				}, function(data) {
+//
+//				});
+//				
+//				$.post(__API__ + "showOneCategory", {
+//					category: 'science'
+//				}, function(data) {
+//
+//				});
+//
+//				$.post(__API__ + "showArticle", {
+//				}, function(data) {
+//
+//				});
+
+			});
+		</script>
+	</body>
+
+</html>

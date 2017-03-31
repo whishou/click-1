@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Artical | Forum | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+		<link rel="stylesheet" id='bootstrap-css-css' href="/css/Bootstrap_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='responsive-css-css' href="/css/Bootstrap_Responsive_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='pretty-photo-css-css' href="/css/prettyphoto.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='main-css-css' href="/css/main.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='blue-skin-css' href="/css/BlueSkin.css" type='text/css' media='all' />
+	</head>
+
+	<body>
+		<!-- Start of Header -->
+		<div class="header-wrapper"></div>
+		<!-- End of Header -->
+
+		<!-- Start of Search Wrapper -->
+		<div class="search-area-wrapper" style="display: none;"></div>
+		<!-- End of Search Wrapper -->
+
+		<!-- Start of Page Container -->
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<!-- start of page content -->
+					<div class="span8 page-content">
+						<!-- Basic Home Page Template -->
+						<ul class="breadcrumb" id="nav-path"></ul>
+						<article class=" type-post format-standard hentry clearfix">
+							<h1 class="post-title" id="post-title"></h1>
+							<div class="post-meta clearfix" id="article-info"></div>
+							<div id="artical-container"></div>
+						</article>
+						<span class="tags" id="article-labels">
+								<strong>Labels:&nbsp;&nbsp;</strong>
+						</span>
+					</div>
+					<!-- end of page content -->
+
+					<!-- start of sidebar -->
+					<aside class="span4 page-sidebar">
+						<!--支持-->
+						<section class="widget">
+							<div class="support-widget">
+								<h3 class="title">Support</h3>
+								<p class="intro">Need more support? If you did not found an answer,
+									<a href="http://www.clickgwas.org/about/">contact us</a> for further help.</p>
+							</div>
+						</section>
+						<!--链接-->
+						<section class="widget">
+							<div class="quick-links-widget">
+								<h3 class="title">Quick Links</h3>
+								<ul id="menu-quick-links" class="menu clearfix">
+									<li>
+										<a href="/">Home</a>
+									</li>
+									<li>
+										<a href="/Articleslist/">Articles List</a>
+									</li>
+									<li>
+										<a href="/FAQs/">FAQs</a>
+									</li>
+									<li>
+										<a href="http://www.clickgwas.org/about/">Contact</a>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<!--标签-->
+						<section class="widget">
+							<h3 class="title">Labels</h3>
+							<div class="tagcloud" id="tags"></div>
+						</section>
+					</aside>
+					<!-- end of sidebar -->
+				</div>
+			</div>
+		</div>
+		<!-- End of Page Container -->
+
+		<!-- Start of Footer -->
+		<footer id="footer-wrapper">
+			<div id="footer" class="container"></div>
+			<div id="footer-bottom-wrapper"></div>
+		</footer>
+		<!-- End of Footer -->
+
+		<script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/base.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#headertitle").append("Forum&nbsp;|&nbsp;Artical");
+
+				$.post(__API__ + "homepage", {
+					token: __TOKEN__,
+				}, function(data) {
+					var obj = eval("(" + data + ")");
+					console.log(obj);
+
+					$.each(obj.data.tag, function(i, o) {
+						$("#tags").append('<a href="#" class="tag">' + o + '</a>');
+					});
+
+					$.each(obj.data.category, function(i, o) {
+						$("#categories").append('<li><a href="#">' + o + '</a></li>');
+					});
+					$.each(obj.data.news, function(i, o) {
+						$("#latest-news").append('<li><a href="#">' + o.title + '</a></li>');
+					});
+
+					if(obj.isLogin == 1) {
+						$.post(__API__ + "getInfo", {
+							token: __TOKEN__,
+						}, function(userdata) {
+							var userinfo = eval("(" + userdata + ")");
+							if(userinfo.isLogin == 1) {
+								getInfo();
+							}
+						});
+					}
+				});
+
+				$.post(__API__ + "showOneArticle", {
+					id: GetQueryString("id"),
+				}, function(data) {
+					var info = eval("(" + data + ")");
+					$("#nav-path").append('<li><a href="#">Article List</a><span class="divider">/</span></li><li><a href="#">'+info.data.category+'</a><span class="divider">/</span></li><li class="active">'+info.data.title+'</li>');
+					$("#post-title").append(info.data.title);
+					$("#article-info").append('<span class="date">'+info.data.created_at+'</span><span class="category"><a href="#">'+info.data.category+'</a></span><span class="comments"><a href="#">'+info.data.comnments+' Comments</a></span><span class="viewtimes"><a href="#">'+info.data.views+' Views</a></span>');
+					$("#artical-container").append(info.data.article);
+					$("#article-labels").append('<a href="#" rel="tag">'+info.data.tag+'</a>');
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

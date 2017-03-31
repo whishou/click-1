@@ -1,0 +1,26 @@
+@import url("http://at.alicdn.com/t/font_q6odjgo437b65hfr.css");
+*{margin:0;padding:0;outline: none;font-size:14px;color:#3A3A3A;box-sizing:border-box;font-family:"franklin_gothic_fsbook","Helvetica Neue",Helvetica,Arial,sans-serif;}
+body{background-color: #fff;}
+li{list-style:none}
+a:link,a:visited,a:active{text-decoration:none}
+.float-left{float: left !important;}
+.float-right{float: right !important;}
+.display-none{display: none !important;}
+
+/*navigation*/
+.navigation{background:url(/img/background/backimg_blue.jpg);background-size:cover;padding:1.2em 0;}
+.navigation  img{height:48px;padding: 5px;border-left:5px solid #FFFFFF;}
+.navigation ul{margin:0;}
+.navigation li{float:left;height:48px;line-height:48px;letter-spacing:1px;margin-left:30px;}
+.navigation a{color:#FFFFFF;font-size:14px;font-weight:500;padding-bottom:6px;text-transform:uppercase;transition:0.7s all;}
+.navigation a:hover,.navigation .active{text-decoration:none;border-bottom:2px solid #FFFFFF;}
+.navigation #login{border:2px solid #FFFFFF;padding:8px 4px;cursor:pointer;}
+.navigation #login:hover{color:#1FCC6E;border-color:#1FCC6E;}
+/*footer*/
+.footer {background-color: #F8F8F8;padding: 50px 0 70px 0;line-height: 1.6;margin-top: 50px;}
+.footer .brand img {height: 48px;margin-top: 16px;margin-bottom: 10px;margin-right: 20%;display: block;}
+.footer .brand span {color: #9196aa;margin-left: 1em;display: block;}
+.footer .info {float: left;width: 23%;margin-left: 2%;}
+.footer .info h4 {font-weight: 600;color: #9196aa;margin: 1.3em 0 0.4em;line-height: 1.2;}
+.footer .info a {display: block;color: #9196aa;margin: 0;font-weight: normal;}
+.footer .info a:hover {color: #484c57;}

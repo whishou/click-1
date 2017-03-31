@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Publish | Forum | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+		<link rel="stylesheet" id='bootstrap-css-css' href="/css/Bootstrap_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='responsive-css-css' href="/css/Bootstrap_Responsive_v2.2.2.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='pretty-photo-css-css' href="/css/prettyphoto.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='main-css-css' href="/css/main.css" type='text/css' media='all' />
+		<link rel="stylesheet" id='blue-skin-css' href="/css/BlueSkin.css" type='text/css' media='all' />
+	</head>
+
+	<body>
+		<!-- Start of Header -->
+		<div class="header-wrapper"></div>
+		<!-- End of Header -->
+
+		<!-- Start of Search Wrapper -->
+		<div class="search-area-wrapper" style="display: none;"></div>
+		<!-- End of Search Wrapper -->
+
+		<!-- Start of Page Container -->
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<!-- start of page content -->
+					<div class="span8 page-content">
+						<!-- Basic Home Page Template -->
+						<div id="editor-container">
+							<div>
+								<h2>Publish your own essay</h2>
+								<input type="text" name="title" placeholder="Please think of a nice title" style="width: 100%;height: 30px;font-size: 16px;" autofocus="">
+								<input type="text" name="category" placeholder="Category (Can only choose a category)  *" style="width: 45%;margin: 10px 10px 10px 0;">
+								<input type="text" name="label" placeholder="Labels (Multiple labels are separated by semicolons';')  *" style="width: 45%;margin: 10px 10px 10px 0;">
+								<script name="article" id="editor" type="text/plain" style="height: 500px;width: 100%;"></script>
+								<input type="submit" id="publish" value="PUBLISH" style="border: none;width: 100%;background: linear-gradient(to bottom, #1a79d9, #1a70c7);box-shadow: 0 1px 2px rgba(255, 255, 255, .15) inset;color: #fff;height: 40px;cursor: pointer;margin-top: 20px;font-size: 18px;text-indent: 0.3em;letter-spacing: 0.3em;"></input>
+							</div>
+
+						</div>
+					</div>
+					<!-- end of page content -->
+
+					<!-- start of sidebar -->
+					<aside class="span4 page-sidebar">
+						<!--支持-->
+						<section class="widget">
+							<div class="support-widget">
+								<h3 class="title">Support</h3>
+								<p class="intro">Need more support? If you did not found an answer,
+									<a href="http://www.clickgwas.org/about/">contact us</a> for further help.</p>
+							</div>
+						</section>
+						<!--链接-->
+						<section class="widget">
+							<div class="quick-links-widget">
+								<h3 class="title">Quick Links</h3>
+								<ul id="menu-quick-links" class="menu clearfix">
+									<li>
+										<a href="/">Home</a>
+									</li>
+									<li>
+										<a href="/Articleslist/">Articles List</a>
+									</li>
+									<li>
+										<a href="/FAQs/">FAQs</a>
+									</li>
+									<li>
+										<a href="http://www.clickgwas.org/about/">Contact</a>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<!--标签-->
+						<section class="widget">
+							<h3 class="title">Labels</h3>
+							<div class="tagcloud" id="tags"></div>
+						</section>
+					</aside>
+					<!-- end of sidebar -->
+				</div>
+			</div>
+		</div>
+		<!-- End of Page Container -->
+
+		<!-- Start of Footer -->
+		<footer id="footer-wrapper">
+			<div id="footer" class="container"></div>
+			<div id="footer-bottom-wrapper"></div>
+		</footer>
+		<!-- End of Footer -->
+
+		<script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/base.js"></script>
+
+		<script type="text/javascript">
+			var ue;
+			$(document).ready(function() {
+				$("#headertitle").append("Forum&nbsp;|&nbsp;Publish");
+
+				$.post(__API__ + "homepage", {
+					token: __TOKEN__,
+				}, function(data) {
+					var obj = eval("(" + data + ")");
+					console.log(obj);
+
+					$.each(obj.data.tag, function(i, o) {
+						$("#tags").append('<a href="#" class="tag">' + o + '</a>');
+					});
+
+					$.each(obj.data.category, function(i, o) {
+						$("#categories").append('<li><a href="#">' + o + '</a></li>');
+					});
+					$.each(obj.data.news, function(i, o) {
+						$("#latest-news").append('<li><a href="#">' + o.title + '</a></li>');
+					});
+
+					if(obj.isLogin == 1) {
+						$.post(__API__ + "getInfo", {
+							token: __TOKEN__,
+						}, function(userdata) {
+							var userinfo = eval("(" + userdata + ")");
+							if(userinfo.isLogin == 1) {
+								addCookie("token", userinfo.data.token, "");
+								$("#login").text(userinfo.data.userName);
+								$("#login").addClass("islogin");
+								__USERINFO__ = userinfo.data;
+								//实例化编辑器
+								ue = UE.getEditor('editor');
+								ue.ready(function() {
+									ue.execCommand('serverparam', {
+										'userName': __USERINFO__.userName,
+									});
+								});
+								setTimeout(function() {
+									UE.getEditor('editor').setContent(UE.getEditor('editor').execCommand("getlocaldata"));
+								}, 1000);
+							}
+						});
+					} else {
+						alert("请先登录");
+						window.location.href = "/";
+					}
+				});
+			});
+		</script>
+
+		<!--编辑器相关配置文件-->
+		<script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="lang/en/en.js"></script>
+		<!--<script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>-->
+		<script type="text/javascript">
+			var loading = false;
+			$("#publish").click(function() {
+				if(loading) {
+					return;
+				}
+				loading = true;
+				$("#publish").val("Publishing...");
+				var ar = UE.getEditor('editor').getContent();
+				if(ar == "") {
+					alert("Please fill in the contents of the article");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				var ti = $("input[name='title']").val();
+				if(ti == "") {
+					alert("Please think of a nice title");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				var ca = $("input[name='category']").val();
+				if(ca == "") {
+					alert("Please select a category");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				var la = $("input[name='label']").val();
+				if(la == "") {
+					alert("Please select a labes");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				$.post(__API__ + "addArticle", {
+					title: ti,
+					article: ar,
+					category: ca,
+					tag: la,
+					userName: __USERINFO__.userName,
+					token: getCookie("token")
+				}, function(data) {
+					var info = eval("(" + data + ")");
+					if(info.data != "") {
+						alert("Published successfully");
+						ue.execCommand('clearlocaldata');
+						window.location.href = "/";
+					} else {
+						alert("Failed to publish");
+						loading = false;
+						$("#publish").val("PUBLISH");
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<title>Mountain | Plot by Chromsome | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+		<script type="text/javascript" src="/js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/base_component.js"></script>
+
+		<script type="text/javascript" src="../../js/echarts.min.js"></script>
+		<link rel="stylesheet" href="../../css/todo.css" />
+	</head>
+
+	<body active="home">
+		<!--navigation-->
+		<div class="container-fluid navigation"></div>
+
+		<div class="container-fluid pagetitle">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<h3><strong>Plot | Mountain</strong> by Chromsome</h3>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+
+		<!-- ploting main section -->
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<!--左功能区-->
+					<div class="col-md-2 left-contral-area">
+						<strong class="col-md-12">By chromesome</strong>
+						<p class="col-md-12">⚠️:Without non-malignant</p>
+						<p class="col-md-12">❌:Not available</p>
+
+						<label class="col-md-12">Chromosomes : <span class="glyphicon glyphicon-info-sign"></span></label>
+						<select class="col-md-12 form-control" id="chromosome"></select>
+
+						<label class="col-md-12">Cancer : <span class="glyphicon glyphicon-info-sign"></span></label>
+						<select class="col-md-12 form-control" id="cancername">
+							<option class="col-md-12" value="lgg">lgg</option>
+							<option class="col-md-12" value="gbm">gbm</option>
+							<option class="col-md-12" value="luad">luad</option>
+							<option class="col-md-12" value="lusc">lusc</option>
+						</select>
+
+						<label class="col-md-12">HighlightedGenes : <span class="glyphicon glyphicon-exclamation-sign"></span></label>
+						<input class="col-md-12 form-control" id="genes" placeholder="genes" value="CPSF3L" />
+
+						<label class="col-md-12">DataType :</label>
+						<select id="dataType" class="col-md-12 form-control">
+							<option class="col-md-12" value="c">✅Copy number variations</option>
+							<option class="col-md-12" value="e">❌mRNA expression</option>
+							<option class="col-md-12" value="m">❌Methylation values</option>
+							<option class="col-md-12" value="mu">❌mutations</option>
+						</select>
+
+						<select class="col-md-12 form-control" id="showType">
+							<option class="col-md-12" value="mid">Meadian</option>
+							<option class="col-md-12" value="mean">mean</option>
+						</select>
+
+						<div class='col-md-12'>
+							<div class="col-md-12">
+								<input type="checkbox" class="col-md-2" id="islog" /> log
+							</div>
+							<div class="col-md-12">
+								<input type="checkbox" class="col-md-2" id="cyto" /> cyto
+							</div>
+						</div>
+
+						<label class="col-md-12">CutOff (&ge;):</label>
+						<div class='col-md-12' id="cutoff">
+							<input class="col-md-6" id="line1" placeholder="linel" />
+							<input class="col-md-6" id="line2" placeholder="line2" />
+						</div>
+
+						<button class="col-md-12 btn btn-primary" id="bt_draw">GO</button>
+					</div>
+
+					<!--绘图区-->
+					<div class="col-md-10 echarts">
+						<div id="echarts" class="col-md-12">
+							<h1>Ploting Here</h1></div>
+					</div>
+
+					<!--底部功能区-->
+					<div class="col-md-12 bottom-contral-area" id="tool_bar">
+						<!--下载图片 选择区-->
+						<div class="col-md-3 image-control">
+							<strong class="col-md-12">Figure Downloading</strong>
+							<div class="col-md-12">
+								<span class="col-md-4">ImageName:</span>
+								<div class="col-md-8">
+									<input id="saveName_input" />
+								</div>
+							</div>
+							<div class="col-md-12">
+								<span class="col-md-4">Format:</span>
+								<div class="col-md-8">
+									<select id="saveType_select"></select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<span class="col-md-8">Size: (<span id="pic_width">640</span>&nbsp;&times;&nbsp;<span id="pic_height">480</span>) &nbsp;&nbsp;&times; </span>
+								<div class="col-md-4">
+									<select id="pixelRatio_select"></select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-6"></div>
+								<div class="col-md-6">
+									<button id="downloadConfigureSave_btn" class="btn btn-primary">OK</button>
+								</div>
+							</div>
+						</div>
+
+						<!--其他功能区-->
+						<div class="col-md-9 style-control"></div>
+					</div>
+					<!--底部功能区结束-->
+					<!--标记 功能区-->
+					<div id="note" class="col-md-12 note-contral-area">
+						<h3 class="col-md-12">HighlightedLabels</h3>
+						<hr/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--以下为绘图部分js-->
+		<script src="../../js/cache.js"></script>
+		<script src="../../js/bychromsome.js"></script>
+		<script>
+			chromsome.View.init();
+			$("#pic_width").html($("#echarts").css("width"));
+			$("#pic_height").html($("#echarts").css("height"));
+			$("#chromosome").html("");
+			for(var i = 1; i < 22; i++) {
+				$("#chromosome").append("<option class='col-md-12' value='" + i + "'>" + i + "</option>");
+			}
+			$("#chromosome").append("<option class='col-md-12' value='X'>X</option>");
+			$("#bt_draw").click(function() {
+				var highlightedGene = $("#genes").val();
+				var cancerType = $("#cancername").val();
+				var chromosomes = $("#chromosome").val();
+				var showType = $("#showType").val();
+				chromsome.Operate.getMoutainData(highlightedGene, cancerType, chromosomes, showType);
+			});
+		</script>
+
+		<!--footer-->
+		<div class="container-fluid footer"></div>
+
+	</body>
+
+</html>

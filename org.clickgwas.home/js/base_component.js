@@ -1,0 +1,27 @@
+$(document).ready(function() {
+	$("#component_page_header").append('<div class="page-header-inner"><div class="page-header-logo"><img src="/img/logo/logo.gif"/></div><div class="page-header-title"><h1>Do GWAS analysis by yourself by Clicking</h1></div><div class="page-header-entry"><div class="page-header-bar"><ul><li><a href="http://portal.clickgwas.org/">Login</a></li><li><a href="http://analysis.clickgwas.org/">Data Analysis</a></li><li><a href="/about/">Content US</a></li></ul></div><div class="page-header-input"><i class="iconfont icon-search"></i><input type="text"placeholder="Search from Click"disabled="disabled"/></div></div></div>');
+	$("#component_nav").append('<div class="navigation-up"><div class="navigation-inner"><div class="navigation"><ul><li _t_nav="home"id="select_home"><h2><a href="/">Home</a></h2></li><li _t_nav="data_analysis"id="select_data_analysis"><h2><a href="http://analysis.clickgwas.org/">Data Analysis</a></h2></li><li _t_nav="submit_data"id="select_submit_data"><h2><a href="/submitdata/">Submit Data</a></h2></li><li _t_nav="demo"id="select_demo"><h2><a href="http://analysis.clickgwas.org/demo/">Demo</a></h2></li><li _t_nav="papaers"id="select_papers"><h2><a href="/papers/">Papers</a></h2></li><li _t_nav="forum"id="select_forum"><h2><a href="http://forum.clickgwas.org/">Forum</a></h2></li><li _t_nav="about_us"id="select_about_us"><h2><a href="/about/">About us</a></h2></li></ul></div></div></div><div class="navigation-down"><div id="data_analysis"class="nav-down-menu"_t_nav="data_analysis"><div class="navigation-down-inner"><div style="width: 171px;float: left;"><img src="/img/logo/clickgwas_logo.png"style="width: 90%;display: block;margin: 1em auto;"/></div><dl><dt>Data Plots</dt><dd><a href="http://analysis.clickgwas.org/todo/beeswarm/">Beeswarm plot</a></dd><dd><a href="http://analysis.clickgwas.org/todo/mountain/">Mountain plot</a></dd><dd><a href="http://analysis.clickgwas.org/todo/manhattan/">Manhattan plot</a></dd><dd><a class="nav-down-menu-disabled">Deflection plot</a></dd><dd><a class="nav-down-menu-disabled">Lego plot</a></dd><dd><a class="nav-down-menu-disabled">Volcano plot</a></dd><dd><a class="nav-down-menu-disabled">Heatmap</a></dd></dl><dl><dt>Data Mining</dt><dd><a href="http://analysis.clickgwas.org/todo/linear_regression/">Linear regression analysis</a></dd><dd><a class="nav-down-menu-disabled">Significance test</a></dd><dd><a class="nav-down-menu-disabled">Survival analysis</a></dd></dl></div></div></div>');
+	var qcloud = {};
+	$('[_t_nav]').hover(function() {
+		var _nav = $(this).attr('_t_nav');
+		clearTimeout(qcloud[_nav + '_timer']);
+		qcloud[_nav + '_timer'] = setTimeout(function() {
+			$('[_t_nav]').each(function() {
+				$(this)[_nav == $(this).attr('_t_nav') ? 'addClass' : 'removeClass']('nav-up-selected')
+			});
+			$('#' + _nav).stop(true, true).slideDown(200)
+		}, 150)
+	}, function() {
+		var _nav = $(this).attr('_t_nav');
+		clearTimeout(qcloud[_nav + '_timer']);
+		qcloud[_nav + '_timer'] = setTimeout(function() {
+			$('[_t_nav]').removeClass('nav-up-selected');
+			$('#' + _nav).stop(true, true).slideUp(200)
+		}, 150)
+	});
+	$(".navigation > ul > li").css("width", (1200 / 7) + "px");
+	$("#select_" + $("body").attr("page")).addClass("nav-up-selected-inpage");
+	$("#component_footer").append('<div class="footerinfo"><div class="container"><ul><li><h2>Quick Entrance</h2></li><li><a href="http://analysis.clickgwas.org/">Data Analysis</a></li><li><a href="/submitdata/">Submit Data</a></li><li><a href="http://analysis.clickgwas.org/demo/">Demo</a></li><li><a href="/papers/">Papers</a></li><li><a href="http://forum.clickgwas.org/">Forum</a></li><li><a href="/about/">About US</a></li></ul><ul><li><h2>About Data</h2></li><li><a href="https://gdc-portal.nci.nih.gov/">Sources of Data</a></li><li><a href="http://analysis.clickgwas.org/">Data Analysis</a></li></ul><ul><li><h2>Links</h2></li><li><a href="http://www.tju.edu.cn/">Tianjin University</a></li><li><a href="http://www.utsouthwestern.edu/">UT Southwestern</a></li><li><a href="https://gdc.cancer.gov/">GDC</a></li><li><a href="https://www.nih.gov/">NIH</a></li></ul><ul><li><h2>About Click</h2></li><li><a href="/about/">Our Project</a></li><li><a href="/about/">Our Team</a></li><li><a href="/about/">Contact US</a></li><li><a href="http://forum.clickgwas.org/faqs/">FAQs</a></li></ul></div></div><div class="footerlogo"><div class="container"><div class="footerlogo-title"><span>Collaborations</span></div><ul><li><a href="http://www.tju.edu.cn/"><img src="/img/logo/tianjinuniversity.png"/></a></li><li><a href="http://www.utsouthwestern.edu/"><img src="/img/logo/ut-southwestern.png"/></a></li></ul></div></div><div class="pagefooter"><div class="container"><div class="pagefooter-links"><ul><li><a href="http://www.tju.edu.cn/">Tianjin University</a></li><li><a href="http://www.utsouthwestern.edu/">UT Southwestern</a></li><li><a href="https://gdc.cancer.gov/">GDC</a></li><li><a href="https://www.nih.gov/">NIH</a></li></ul></div><p>Copyright&copy;2016-2017 clickgwas.org</p><p>Tianjin,China,300350</p></div></div>');
+	$("a[href^='http://']").attr("target", "_blank");
+	$("a[href^='https://']").attr("target", "_blank");
+});
