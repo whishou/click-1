@@ -33,7 +33,7 @@ function lasttime(t) {
 		$(".skip > em").text("Enjoy your data analysis journey.");
 		setTimeout(function() {
 			addCookie("isnew", "0", "");
-			window.location.href = "/";
+			window.location.href = "../";
 		}, 1000);
 	} else {
 		$(".skip > em > lasttime").text(t);
@@ -45,7 +45,7 @@ function lasttime(t) {
 
 $("#skipnow").bind('click', function() {
 	addCookie("isnew", "0", "");
-	window.location.href = "/";
+	window.location.href = "../";
 });
 
 function title() {
