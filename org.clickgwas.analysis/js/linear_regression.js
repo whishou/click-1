@@ -41,27 +41,37 @@ var linear = new Object({
 
             //获取点数据
             var point = [];
-            $.ajax({
-                type: "get",
-                async: false,
-                url:url+"/linearPoint",
-                data: {},
-                dataType: "json",
-                success: function (result) {
-                    if (result) {
-                        for (var i = 0; i < result.length; i++) {
-                            point.push([result[i].y1,result[i].y2,result[i].sampleid]);
-                        }
-                    }
-                    if(result.length==0){
-                        alert("Please check your spelliing or the gene doesn't exit in these two data types.");
-                    }
-                },
-                error: function (errorMsg) {
-                    alert("Failed to get the data.");
+                function handleData(){    //防止ajax页面卡死
+                var defer = $.Deferred();
+                $.ajax({
+                    type: "get",
+                    // async: false,
+                    url: url+"/linearPoint",
+                    data: {},
+                    dataType: "json",
+                    success: function(result){
+                        defer.resolve(result)
+                    },
+                    error: function (errorMsg) {
+                    $("#echarts").html('<div class="spinner">' +
+                    '<div class="rect1"></div>' +
+                    '<div class="rect2"></div>' +
+                    '<div class="rect3"></div>' +
+                    '<div class="rect4"></div>' +
+                    '<div class="rect5"></div>' +
+                    '</div><p class="col-md-12" style="text-align:center;color:rgb(61,132,193);">Please check your spelliing or the gene does not exit in these two data types.</p>');
                 }
-            });
-            linear.View.draw(point,geneName , linearStyle, is_reRender, is_downloadConfigured);
+                });
+                return defer.promise();
+            }
+            $.when(handleData()).done(function(result){
+                if (result) {
+                         for (var i = 0; i < result.length; i++) {
+                             point.push([result[i].y1,result[i].y2,result[i].sampleid]);
+                         }
+                     }
+                linear.View.draw(point,geneName , linearStyle, is_reRender, is_downloadConfigured);
+             })
         }
     },
     View: {
