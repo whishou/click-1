@@ -13,7 +13,6 @@ var linear = new Object({
     URL: {
         BASE_URL: function () {
             return "http://47.88.77.83:8080/data/data/";
-            //return "http://localhost:8090/click/data/";
         },
         LINEAR: function (cancerType,geneName,dataType,dataType2,sampleType) {
             var value= $("input[name='isLog']:checked").val();
@@ -41,11 +40,11 @@ var linear = new Object({
 
             //获取点数据
             var point = [];
+            var pvalue = [];
                 function handleData(){    //防止ajax页面卡死
                 var defer = $.Deferred();
                 $.ajax({
                     type: "get",
-                    // async: false,
                     url: url+"/linearPoint",
                     data: {},
                     dataType: "json",
@@ -66,11 +65,15 @@ var linear = new Object({
             }
             $.when(handleData()).done(function(result){
                 if (result) {
-                         for (var i = 0; i < result.length; i++) {
+                    var l= result.length;
+                         for (var i = 0; i < l-1; i++) {            //-1是为了去掉调用matlab返回的p值
                              point.push([result[i].y1,result[i].y2,result[i].sampleid]);
                          }
+                         for (var i=l-1; i<l;i++){
+                             pvalue.push([result[i].sampleid]);             //返回pvalue
+                         }
                      }
-                linear.View.draw(point,geneName , linearStyle, is_reRender, is_downloadConfigured);
+                linear.View.draw(point,geneName , linearStyle, is_reRender, is_downloadConfigured,pvalue);
              })
         }
     },
@@ -294,7 +297,7 @@ var linear = new Object({
 
 
 
-        draw: function (point, geneName, linearStyle, is_reRender, is_downloadConfigured) {
+        draw: function (point, geneName, linearStyle, is_reRender, is_downloadConfigured,pvalue) {
             //使用最小二乘法处理数据
             // a=(NΣxy-ΣxΣy)/(NΣx^2-(Σx)^2)
             // b=y(平均)-a*x(平均)
@@ -484,7 +487,7 @@ var linear = new Object({
                 $("#downloadConfigureSave_btn").click(function() {    
                     console.log("ImgSaveConfigure:" + $("#saveName_input").val() + "." + $("#saveType_select").val() + ":" + $("#pixelRatio_select").val());
                     is_downloadConfigured = true;
-                    linear.View.draw(point, geneName, linearStyle, is_reRender, is_downloadConfigured);
+                    linear.View.draw(point, geneName, linearStyle, is_reRender, is_downloadConfigured,pvalue);
                 });
             }
             
@@ -498,7 +501,7 @@ var linear = new Object({
             $("#btn_Rerender").click(function(){
                 console.log("ImgSaveConfigure:" + $("#saveName_input").val() + "." + $("#saveType_select").val() + ":" + $("#pixelRatio_select").val());
                 is_reRender = true;
-                linear.View.draw(point, geneName, linearStyle, is_reRender, is_downloadConfigured);
+                linear.View.draw(point, geneName, linearStyle, is_reRender, is_downloadConfigured,pvalue);
             });
             }
             var series;
