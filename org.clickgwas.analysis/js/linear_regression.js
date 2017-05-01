@@ -539,7 +539,7 @@ var linear = new Object({
                         label:{
                             normal:{
                                 show:true,
-                                formatter:"Correlation="+r.toFixed(4)+"     p-value="+"unknown now",
+                                formatter:"Correlation="+r.toFixed(4)+"     p-value="+pvalue,
                                 textStyle:{
                                     color:'#000',
                                     fontSize:20
